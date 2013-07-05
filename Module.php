@@ -13,8 +13,9 @@ class Module extends ModuleCore
 
     if (!isset(self::$_INSTANCE[$module_name]))
     {
+      // Require ModuleOverrie 
       require_once 'ModuleOverride.php';
-
+      // and load the right classes (child and mother or just the mother)
       ModuleOverride::load($module_name);
 
       if (class_exists($module_name, false))
