@@ -95,7 +95,12 @@ class ModuleOverride
    */
   protected function generateCodeModuleFile()
   {
+    // Rewrite the name class
     $moduleCore = preg_replace('/class\s+([a-zA-Z0-9_-]+)/', 'class $1Module', file_get_contents(_PS_MODULE_DIR_.$this->module_name.'/'.$this->module_name.'.php'));
+    // Rewrite the dirname rules
+    $moduleCore = preg_replace('/dirname\(__FILE__\)/i', '\''._PS_MODULE_DIR_.$this->module_name.'\'', $moduleCore);
+    // Replace the private methods by protected (for allowed rewrite in extended classes)
+    $moduleCore = str_ireplace('private', 'protected', $moduleCore);
     
     file_put_contents($this->module_core_path, $moduleCore, LOCK_EX);
     $this->overrided_module[$this->module_name] = filemtime(_PS_MODULE_DIR_.$this->module_name.'/'.$this->module_name.'.php');

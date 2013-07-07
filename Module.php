@@ -24,4 +24,12 @@ class Module extends ModuleCore
     }
     return self::$_INSTANCE[$module_name];
   }
+
+  protected static function _isTemplateOverloadedStatic($module_name, $template)
+  {
+    // Rewrite module name if it's overrided module
+    if(false !== strpos($module_name, '.core'))
+      $module_name = str_ireplace('.core', '', $module_name);
+    return parent::_isTemplateOverloadedStatic($module_name, $template);
+  }
 }
