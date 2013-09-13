@@ -12,7 +12,7 @@ class ModuleOverride
    * The current module name who loaded
    * @var string
    */
-  protected $modume_name;
+  protected $module_name;
 
   /**
    * Path of module core (in modules/ dir)
