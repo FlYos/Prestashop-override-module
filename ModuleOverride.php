@@ -12,7 +12,7 @@ class ModuleOverride
    * The current module name who loaded
    * @var string
    */
-  protected $modume_name;
+  protected $module_name;
 
   /**
    * Path of module core (in modules/ dir)
@@ -68,7 +68,8 @@ class ModuleOverride
   {
     // If not override, then we load basic file
     if(!file_exists(_PS_THEME_DIR_.'modules/'.$this->module_name.'/'.$this->module_name.'.php'))
-      include_once _PS_MODULE_DIR_.$this->module_name.'/'.$this->module_name.'.php';
+      if(file_exists(_PS_MODULE_DIR_.$this->module_name.'/'.$this->module_name.'.php'))
+        include_once _PS_MODULE_DIR_.$this->module_name.'/'.$this->module_name.'.php';
     else
     {
       // else we load the parent class
